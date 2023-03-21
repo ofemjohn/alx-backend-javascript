@@ -1,9 +1,11 @@
-export default function appendToEachArrayValue(array, appendString) {
-  const array2 = array;
+const appendToEachArrayValue = (array, appendString) => { 
+  const newArray = [];
+
   for (const value of array) {
-    const idx = array.indexOf(value);
-    array2[idx] = appendString + value;
+    newArray.push(appendString + value);
   }
 
-  return array2;
+  return newArray;
 }
+
+console.log(appendToEachArrayValue(['appended', 'fixed', 'displayed'], 'correctly-'));
