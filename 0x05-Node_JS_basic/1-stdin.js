@@ -4,7 +4,6 @@ console.log('Welcome to Holberton School, what is your name?');
 
 const read = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
 });
 
 read.on('line', (name) => {
