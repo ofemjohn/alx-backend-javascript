@@ -1,7 +1,5 @@
 const readline = require('readline');
 
-console.log('Welcome to Holberton School, what is your name?');
-
 const read = readline.createInterface({
   input: process.stdin,
 });
@@ -13,3 +11,5 @@ read.on('line', (name) => {
 read.on('close', () => {
   console.log('This important software is now closing');
 });
+
+console.log('Welcome to Holberton School, what is your name?');
