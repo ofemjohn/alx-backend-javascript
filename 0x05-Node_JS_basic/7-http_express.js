@@ -1,29 +1,25 @@
 const express = require('express');
+const { countStudents, readDatabase } = require('./3-read_file_async');
 
-const args = process.argv.slice(2);
-const countStudents = require('./3-read_file_async');
-
-const DATABASE = args[0];
-
-const port = 1245;
 const app = express();
+const args = process.argv.slice(2);
+const DATABASE = args[0];
 
 app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
 });
 
 app.get('/students', async (req, res) => {
-  const msg = 'This is the list of our students\n';
   try {
-    const students = await countStudents(DATABASE);
-    res.send(`${msg}${students.join('\n')}`);
+    const { lines, database } = await readDatabase(DATABASE);
+    res.send(`This is the list of our students\nNumber of students: ${countStudents(lines)}\nNumber of students in CS: ${database.CS.length}. List: ${database.CS.join(', ')}\nNumber of students in SWE: ${database.SWE.length}. List: ${database.SWE.join(', ')}\n`);
   } catch (error) {
-    res.send(`${msg}${error.message}`);
+    res.status(500).send('Internal Server Error');
   }
 });
 
-app.listen(port, () => {
-  //   console.log(`Example app listening at http://localhost:${port}`);
+app.listen(1245, () => {
+  console.log('Server running on port 1245');
 });
 
 module.exports = app;
