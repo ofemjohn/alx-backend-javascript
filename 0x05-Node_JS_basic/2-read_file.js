@@ -1,34 +1,41 @@
 const fs = require('fs');
 
 function countStudents(path) {
-  const students = [];
+  let database;
+
   try {
-    const data = fs.readFileSync(path, 'utf8');
-    const lines = data.split('\n');
-    lines.forEach((line) => {
-      const [firstName, lastName, field] = line.split(',');
-      students.push({
-        firstName,
-        lastName,
-        field,
-      });
-    });
-  } catch (error) {
+    database = fs.readFileSync(path);
+  } catch (err) {
     throw new Error('Cannot load the database');
   }
 
-  const numberOfStudents = students.length;
-  console.log(`Number of students: ${numberOfStudents}`);
+  database = database.toString().split('\n');
 
-  const fieldToStudents = students.reduce((acc, student) => {
-    acc[student.field] = acc[student.field] || [];
-    acc[student.field].push(student.firstName);
-    return acc;
-  }, {});
+  let std = database.filter((item) => item);
 
-  Object.keys(fieldToStudents).forEach((field) => {
-    console.log(`Number of students in ${field}: ${fieldToStudents[field].length}. List: ${fieldToStudents[field].join(', ')}`);
-  });
+  std = std.map((item) => item.split(','));
+
+  const NUMBER_OF_STUDENTS = std.length ? std.length - 1 : 0;
+  console.log(`Number of students: ${NUMBER_OF_STUDENTS}`);
+
+  const area = {};
+  for (const i in std) {
+    if (i !== 0) {
+      if (!area[std[i][3]]) area[std[i][3]] = [];
+
+      area[std[i][3]].push(std[i][0]);
+    }
+  }
+
+  delete area.field;
+
+  for (const key of Object.keys(area)) {
+    console.log(
+      `Number of students in ${key}: ${area[key].length}. List: ${area[
+        key
+      ].join(', ')}`,
+    );
+  }
 }
 
 module.exports = countStudents;
