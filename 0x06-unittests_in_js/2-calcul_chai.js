@@ -1,28 +1,22 @@
 function calculateNumber(type, a, b) {
-  // Validate the type argument.
-  if (!['SUM', 'SUBTRACT', 'DIVIDE'].includes(type)) {
-    throw new Error('Invalid operation type.');
+  const num1 = Number(a);
+  const num2 = Number(b);
+
+  if (Number.isNaN(num1) || Number.isNaN(num2)) {
+    throw TypeError;
   }
-
-  // Convert the arguments to numbers.
-  const numOne = Number(a);
-  const numTwo = Number(b);
-
-  // Perform the operation.
-  switch (type) {
-    case 'SUM':
-      return numOne + numTwo;
-    case 'SUBTRACT':
-      return numOne - numTwo;
-    case 'DIVIDE':
-      if (numTwo === 0) {
-        return 'Error';
-      }
-      return numOne / numTwo;
-    default:
-      throw new Error('Invalid operation type.');
+  
+  if (type === 'SUM') {
+    return (Math.round(num1) + Math.round(num2));
+  } else if(type === 'SUBTRACT') {
+    return (Math.round(num1) - Math.round(num2));
+  } else if (type === 'DIVIDE') {
+    if (Math.round(num2) === 0) {
+      return ('Error');
+    }
+    return (Math.round(num1) / Math.round(num2));
+  } else {
+    throw TypeError;
   }
 }
-
 module.exports = calculateNumber;
-
