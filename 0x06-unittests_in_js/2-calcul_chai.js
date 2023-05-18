@@ -1,17 +1,23 @@
 function calculateNumber(type, a, b) {
-  const intA = Math.round(a);
-  const intB = Math.round(b);
+  const num1 = Number(a);
+  const num2 = Number(b);
+
+  if (isNaN(num1) || isNaN(num2)) {
+    throw new TypeError();
+  }
 
   switch (type) {
+    case "SUM":
+      return Math.round(num1) + Math.round(num2);
     case "SUBTRACT":
-      return intA - intB;
+      return Math.round(num1) - Math.round(num2);
     case "DIVIDE":
-      if (intB === 0) {
+      if (num2 === 0) {
         return "Error";
       }
-      return intA / intB;
+      return Math.round(num1) / Math.round(num2);
     default:
-      return intA + intB;
+      throw new TypeError();
   }
 }
 
