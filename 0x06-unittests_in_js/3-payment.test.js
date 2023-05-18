@@ -18,3 +18,4 @@ describe('Spy', function () {
     spyConsole.restore();
   });
 });
+
