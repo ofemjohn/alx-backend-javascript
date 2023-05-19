@@ -1,8 +1,7 @@
-const chai = require('chai');
-const expect = chai.expect;
+const { expect } = require('chai');
 const request = require('supertest');
 
-describe('API', () => {
+describe('Express app test suite', () => {
   describe('/', () => {
     it('should return the message Welcome to the payment system', (done) => {
       request('http://localhost:7865')
