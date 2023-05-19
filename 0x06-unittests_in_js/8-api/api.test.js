@@ -1,14 +1,18 @@
 const { expect } = require('chai');
-const request = require('supertest');
+const request = require('request');
+
+const HOST = '127.0.0.1';
+const PORT = '7865';
 
 describe('Express app test suite', () => {
-  describe('/', () => {
-    it('should return the message Welcome to the payment system', (done) => {
-      request('http://localhost:7865')
-        .get('/')
-        .expect(200)
-        .expect('body', 'Welcome to the payment system')
-        .end(done);
+  it('should return home page', (done) => {
+    request.get(`http://${HOST}:${PORT}/`, (error, res, body) => {
+      if (error) {
+        expect(res.statusCode).to.not.equal(200);
+      }
+      expect(res.statusCode).to.equal(200);
+      expect(body).to.equal('Welcome to the payment system');
+      done();
     });
   });
 });

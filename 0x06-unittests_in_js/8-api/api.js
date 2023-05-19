@@ -6,11 +6,8 @@ app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
-const port = 7865;
-const host = '127.0.0.1';
-
-app.listen(port, host, () => {
-  console.log(`Server is live at ${host}:${port}`);
+app.listen(7865, () => {
+  console.log('Server is live at http://localhost:7865');
 });
 
 module.exports = app;
